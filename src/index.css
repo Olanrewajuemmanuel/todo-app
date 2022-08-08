@@ -116,6 +116,13 @@ input[name="search"] {
   border-radius: 10px;
   margin-right: 1em;
 }
+input[name='edit'] {
+  border: 0;
+  background-color: transparent;
+  border-bottom: 2px solid var(--accent) !important;
+  outline: 0;
+  min-width: 80%;
+}
 .react-datepicker {
   width: 20% !important;
   border: none !important;

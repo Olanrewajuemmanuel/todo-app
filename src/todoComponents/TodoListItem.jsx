@@ -53,6 +53,7 @@ function TodoListItem({
             <form onSubmit={(e) => handleEditSubmit(e, todoItem.id)}>
               <input
                 type="text"
+                name="edit"
                 onChange={(e) => setnewTitle(e.target.value)}
                 defaultValue={todoItem.title}
                 ref={inputRef}
