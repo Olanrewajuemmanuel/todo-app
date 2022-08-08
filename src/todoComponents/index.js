@@ -18,6 +18,16 @@ import TodoList from "./TodoList";
 //     }
 //     return 0;
 //   });
+// const newArr = [...todoItems]
+//     // Sort by date modified
+//     newArr.sort(function (a, b) {
+//       if (a.dateModified > b.dateModified) {
+//         return 1;
+//       }
+//       // else sort undone items first
+//       return a.done - b.done
+//     });
+//     setTodoItems(newArr)
 // }
 
 function TodoApp({ darkModeStatus: [isDarkMode, setIsDarkMode] }) {
@@ -44,17 +54,26 @@ function TodoApp({ darkModeStatus: [isDarkMode, setIsDarkMode] }) {
       dueDate: new Date("2022", "1", "27"),
     },
   ]);
+  const [initialRender, setinitialRender] = useState(true)
 
   useEffect(() => {
-    // Sort by date modified
-    todoItems.sort(function (a, b) {
-      if (a.dateModified > b.dateModified) {
-        return -1;
-      }
-
-      return 0;
-    });
-  }, [todoItems]);
+    function sortList(items) {
+      const newArr = [...items]; // make copy of state items
+      newArr.sort(function (a, b) {
+        // Sort by date modified
+        if (a.dateModified > b.dateModified) {
+          return 1;
+        }
+        // else sort undone items first
+        return a.done - b.done;
+      });
+      return newArr
+    }
+    console.log("Re-render");
+    if (initialRender)
+      setTodoItems(prevItems => sortList(prevItems))
+      setinitialRender(false)
+  }, [initialRender]);
   const removeItem = (id) => {
     setTodoItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
@@ -96,6 +115,7 @@ function TodoApp({ darkModeStatus: [isDarkMode, setIsDarkMode] }) {
       <TodoList
         todoState={[todoItems, removeItem, editItem, toggleItemCompletedStatus]}
         darkModeStatus={isDarkMode}
+        initialRender={setinitialRender}
       />
     </Container>
   );

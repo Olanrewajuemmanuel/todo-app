@@ -15,6 +15,7 @@ function TodoListItem({
   editItem,
   darkModeStatus,
   toggleItemCompletedStatus,
+  initialRender
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [newTitle, setnewTitle] = useState("");
@@ -31,6 +32,7 @@ function TodoListItem({
   };
   const handleDoubleClick = (itemId) => {
     toggleItemCompletedStatus(itemId);
+    initialRender(true)
   };
   return (
     <motion.div

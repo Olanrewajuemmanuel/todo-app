@@ -2,7 +2,7 @@ import React from "react";
 import TodoListItem from "./TodoListItem";
 
 
-function TodoList({ todoState: [todoItems, removeItem, editItem, toggleItemCompletedStatus], darkModeStatus }) {
+function TodoList({ todoState: [todoItems, removeItem, editItem, toggleItemCompletedStatus], darkModeStatus, initialRender }) {
   return (
     <div>
       {todoItems.map((item) => (
@@ -13,6 +13,7 @@ function TodoList({ todoState: [todoItems, removeItem, editItem, toggleItemCompl
           editItem={editItem}
           darkModeStatus={darkModeStatus}
           toggleItemCompletedStatus={toggleItemCompletedStatus}
+          initialRender={initialRender}
         />
       ))}
     </div>
