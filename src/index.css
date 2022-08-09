@@ -13,6 +13,7 @@ div,
   --shade: #787777;
   --white-shade: #f5f5f5;
   --white: #fff;
+  --border-focus: #b1b1b1;
 }
 
 
@@ -141,4 +142,39 @@ input[name='edit'] {
 .react-datepicker__month {
   background-color: #fff;
   z-index: 99;
+}
+.tour-modal {
+  position: fixed;
+  background-color: var(--accent);
+  color: white;
+  width: 320px;
+  max-width: 320px;
+  padding: 1em 1em;
+  margin-top: 14rem; /* 14 */
+  border-radius: 5px;
+  z-index: 2;
+}
+.nav-modal-btn {
+  background-color: var(--accent);
+  color: var(--white);
+  font-weight: 500;
+  border: 0;
+  width: 60px;
+  padding: .3em;
+  border-radius: 5px;
+  transition: background 300ms;
+}
+.nav-modal-btn:hover {
+  background-color: #ff537e;
+}
+.tour-input-focus {
+  border: 3px solid var(--border-focus);
+  padding: .3em;
+  border-radius: 5px;
+}
+.tour-btn-focus {
+  outline: 3px solid var(--border-focus);
+}
+.tour-list-focus {
+  outline: 3px solid var(--border-focus);
 }

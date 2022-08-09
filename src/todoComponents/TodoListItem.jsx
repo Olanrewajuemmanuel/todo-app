@@ -15,7 +15,8 @@ function TodoListItem({
   editItem,
   darkModeStatus,
   toggleItemCompletedStatus,
-  initialRender
+  initialRender,
+  tourStatus: [takeTour, setTakeTour],
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [newTitle, setnewTitle] = useState("");
@@ -32,16 +33,18 @@ function TodoListItem({
   };
   const handleDoubleClick = (itemId) => {
     toggleItemCompletedStatus(itemId);
-    initialRender(true)
+    initialRender(true);
   };
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
       onDoubleClick={() => handleDoubleClick(todoItem.id)}
     >
+      
       <Row
         className={[
           darkModeStatus ? "bg" : `${darkModeStyles.background}`,
+          takeTour === 3 ? "tour-list-focus" : "",
           "py-3",
           "px-2",
           "my-3",
@@ -71,15 +74,18 @@ function TodoListItem({
           )}
         </Col>
         <Col className="d-flex">
-        {/* Edit button */}
+          {/* Edit button */}
           <motion.button
-            whileHover={{ scale: 1.2, transition: {
-              repeat: Infinity,
-              repeatType: "reverse",
-              duration: 2,
-              repeatDelay: 1,
-              ease: "easeIn",
-            } }}
+            whileHover={{
+              scale: 1.2,
+              transition: {
+                repeat: Infinity,
+                repeatType: "reverse",
+                duration: 2,
+                repeatDelay: 1,
+                ease: "easeIn",
+              },
+            }}
             className="me-4 btn-upd"
             onClick={() => setIsEditMode(!isEditMode)}
           >
@@ -98,13 +104,16 @@ function TodoListItem({
           </motion.button>
           {/* Delete button */}
           <motion.button
-            whileHover={{ scale: 1.2, transition: {
-              repeat: Infinity,
-              repeatType: "reverse",
-              duration: 2,
-              repeatDelay: 1,
-              ease: "easeIn",
-            } }}
+            whileHover={{
+              scale: 1.2,
+              transition: {
+                repeat: Infinity,
+                repeatType: "reverse",
+                duration: 2,
+                repeatDelay: 1,
+                ease: "easeIn",
+              },
+            }}
             className="btn-upd"
             onClick={() => removeItem(todoItem.id)}
           >
