@@ -28,7 +28,11 @@ function SearchComponent({
     setDueDate(new Date());
 
     // if on tour, move to next step
-    setTakeTour(step => step+1)
+    if (takeTour < 2) {
+      setTakeTour(4) // User skipped taking the Tour
+    } else {
+      setTakeTour(step => step+1)
+    }
   };
 
   return (

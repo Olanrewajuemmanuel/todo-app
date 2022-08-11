@@ -5,29 +5,7 @@ import SearchComponent from "./SearchComponent";
 import TodoList from "./TodoList";
 
 function TodoApp({ darkModeStatus: [isDarkMode, setIsDarkMode] }) {
-  const [todoItems, setTodoItems] = useState([
-    {
-      id: "1",
-      title: "Do the dishes",
-      done: false,
-      dateModified: new Date(),
-      dueDate: new Date(),
-    },
-    {
-      id: "2",
-      title: "Do the laundry",
-      done: true,
-      dateModified: new Date(),
-      dueDate: new Date(),
-    },
-    {
-      id: "3",
-      title: "Book appointment with Dr. Brenner",
-      done: false,
-      dateModified: new Date(),
-      dueDate: new Date("2022", "1", "27"),
-    },
-  ]);
+  const [todoItems, setTodoItems] = useState([]);
   const [initialRender, setinitialRender] = useState(true);
   const [takeTour, setTakeTour] = useState(0);
 
@@ -48,15 +26,14 @@ function TodoApp({ darkModeStatus: [isDarkMode, setIsDarkMode] }) {
     if (initialRender) setTodoItems((prevItems) => sortList(prevItems));
     setinitialRender(false);
   }, [initialRender]);
-  
+
   // On render, check if user has take tour previously
   if (takeTour === 4) {
-      localStorage.setItem("doneTour", 'true')
+    localStorage.setItem("doneTour", "true");
   }
   useEffect(() => {
-    const userTourStatus = localStorage.getItem('doneTour')
-    if (!userTourStatus) setTakeTour(1)
-    
+    const userTourStatus = localStorage.getItem("doneTour");
+    if (!userTourStatus) setTakeTour(1);
   }, []);
   const removeItem = (id) => {
     setTodoItems((prevItems) => prevItems.filter((item) => item.id !== id));
