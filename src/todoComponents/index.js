@@ -9,23 +9,17 @@ function TodoApp({ darkModeStatus: [isDarkMode, setIsDarkMode] }) {
   const [initialRender, setinitialRender] = useState(true);
   const [takeTour, setTakeTour] = useState(0);
 
-  useEffect(() => {
-    function sortList(items) {
-      const newArr = [...items]; // make copy of state items
-      newArr.sort(function (a, b) {
-        // Sort by date modified
+useEffect(() => {
+  function sortTodoList() {
+    todoItems.sort((a, b) => {
 
-        if (a.dateModified.getTime() > b.dateModified.getTime()) {
-          return 1;
-        }
-        // else sort undone items first
-        return a.done - b.done;
-      });
-      return newArr;
-    }
-    if (initialRender) setTodoItems((prevItems) => sortList(prevItems));
-    setinitialRender(false);
-  }, [initialRender]);
+      if (a.done > b.done) { return 1 }
+      if (a.done < b.done) { return -1 }
+      return 0
+    })
+  }
+  sortTodoList()
+}, [todoItems, initialRender])
 
   // On render, check if user has take tour previously
   if (takeTour === 4) {

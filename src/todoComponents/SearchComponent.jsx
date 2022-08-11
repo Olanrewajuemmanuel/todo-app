@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import "react-datepicker/dist/react-datepicker.css";
 import TourModal from "./TourModal";
+import ErrorModal from "./ErrorModal";
 
 function SearchComponent({
   updateTodoItems,
@@ -11,15 +12,17 @@ function SearchComponent({
 }) {
   const [dueDate, setDueDate] = useState(new Date());
   const [title, setTitle] = useState("");
+  const [isInvalidDate, setIsInvalidDate] = useState(false)
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
     if (title === "") return; // title can't be null
     // date can be before today
     if (dueDate.getTime() < new Date().getTime()) {
-      alert("Invalid date"); // TODO: change to modal, maybe
-      return;
+      setIsInvalidDate(true)
+      return; // DO NOTHING
     }
+
     updateTodoItems((prevItems) => [
       ...prevItems,
       { id: Math.random(), title, dateModified: new Date(), dueDate },
@@ -29,14 +32,16 @@ function SearchComponent({
 
     // if on tour, move to next step
     if (takeTour < 2) {
-      setTakeTour(4) // User skipped taking the Tour
+      setTakeTour(4); // User skipped taking the Tour
     } else {
-      setTakeTour(step => step+1)
+      setTakeTour((step) => step + 1);
     }
   };
 
   return (
     <div>
+      {/* Invalid date modal */}
+      { isInvalidDate ? <ErrorModal msg={`Date should be between now and the future.`} setVisibility={setIsInvalidDate} /> : null }
       <form onSubmit={handleSubmit} className="mb-5">
         {takeTour === 1 ? (
           <TourModal
@@ -52,7 +57,6 @@ function SearchComponent({
             msg={`Double click an item, to toggle completion. Completed items are moved to the bottom.`}
             changeTourStatus={setTakeTour}
             step={takeTour}
-
           />
         ) : (
           ""
@@ -75,18 +79,16 @@ function SearchComponent({
             wrapperClassName="react-datepicker"
           />
         </div>
-        
+
         <motion.button
           whileTap={{ scale: 0.9 }}
           whileHover={{ opacity: 0.9 }}
           transition={{ ease: "easeOut" }}
           type="submit"
-          className={`btn-accent ${takeTour === 2 ? 'tour-btn-focus': null} `}
+          className={`btn-accent ${takeTour === 2 ? "tour-btn-focus" : null} `}
         >
           Add
-         
         </motion.button>
-        
       </form>
     </div>
   );

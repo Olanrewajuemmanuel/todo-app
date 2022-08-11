@@ -178,3 +178,6 @@ input[name='edit'] {
 .tour-list-focus {
   outline: 3px solid var(--border-focus);
 }
+.modal-body {
+  width: 320px;
+}
