@@ -11,15 +11,10 @@ function TodoApp({ darkModeStatus: [isDarkMode, setIsDarkMode] }) {
 
 useEffect(() => {
   function sortTodoList() {
-    todoItems.sort((a, b) => {
-
-      if (a.done > b.done) { return 1 }
-      if (a.done < b.done) { return -1 }
-      return 0
-    })
+    todoItems.sort((a, b) => a.dateModified.getTime() - b.dateModified.getTime())
   }
   sortTodoList()
-}, [todoItems, initialRender])
+}, [todoItems])
 
   // On render, check if user has take tour previously
   if (takeTour === 4) {
