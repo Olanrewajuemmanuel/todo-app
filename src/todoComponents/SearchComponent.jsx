@@ -27,6 +27,8 @@ function SearchComponent({
       ...prevItems,
       { id: Math.random(), title, dateModified: new Date(), dueDate },
     ]);
+    
+    // Reset form
     setTitle("");
     setDueDate(new Date());
 
