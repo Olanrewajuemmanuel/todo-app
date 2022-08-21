@@ -12,22 +12,30 @@ function SearchComponent({
 }) {
   const [dueDate, setDueDate] = useState(new Date());
   const [title, setTitle] = useState("");
-  const [isInvalidDate, setIsInvalidDate] = useState(false)
+  const [isInvalidDate, setIsInvalidDate] = useState(false);
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
     if (title === "") return; // title can't be null
     // date can be before today
     if (dueDate.getTime() < new Date().getTime()) {
-      setIsInvalidDate(true)
+      setIsInvalidDate(true);
       return; // DO NOTHING
     }
 
-    updateTodoItems((prevItems) => [
-      ...prevItems,
-      { id: Math.random(), title, dateModified: new Date(), dueDate },
-    ]);
-    
+    updateTodoItems((prevItems) => {
+      // insert new item to front of list
+      console.log(prevItems);
+      const newState = [...prevItems];
+      newState.unshift({
+        id: Math.random(),
+        title,
+        dateModified: new Date(),
+        dueDate,
+      });
+      return newState;
+    });
+
     // Reset form
     setTitle("");
     setDueDate(new Date());
@@ -43,7 +51,12 @@ function SearchComponent({
   return (
     <div>
       {/* Invalid date modal */}
-      { isInvalidDate ? <ErrorModal msg={`Date should be between now and the future.`} setVisibility={setIsInvalidDate} /> : null }
+      {isInvalidDate ? (
+        <ErrorModal
+          msg={`Date should be between now and the future.`}
+          setVisibility={setIsInvalidDate}
+        />
+      ) : null}
       <form onSubmit={handleSubmit} className="mb-5">
         {takeTour === 1 ? (
           <TourModal
